@@ -693,7 +693,7 @@ svg path {
 }
 
 .site-main {
-	overflow: hidden; /* Resolves issue with <pre> elements forcing full width. */
+	/*overflow: hidden;  Resolves issue with <pre> elements forcing full width. */
 	padding: 0 1rem;
 }
 
@@ -720,7 +720,18 @@ svg path {
 			"footer footer footer footer";
 	}
 
+	.blog .site,
+	.single-post .site {
+		grid-template-columns: 1fr minmax(auto, 280px) minmax(auto, 720px) 1fr;
+		grid-template-areas:
+			"header header header header"
+			". main main ."
+			"sidebar sidebar sidebar sidebar"
+			"footer footer footer footer";
+	}
+
 	.no-sidebar .site,
+	.home .site,
 	.page-template-full-width .site {
 		grid-template-columns: 1fr minmax(0, 1000px) 1fr;
 		grid-template-areas:
@@ -1306,7 +1317,7 @@ svg path {
 }
 
 /* This code will NOT work properly if there is a sidebar on the left or right */
-/* 
+
 .alignwide,
 .alignfull {
 	display: block;
@@ -1326,4 +1337,4 @@ svg path {
 		margin-right: -150px;
 	}
 }
-*/
+

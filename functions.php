@@ -109,7 +109,7 @@ function fwd_setup() {
 	 */
 	add_theme_support( 'wp-block-styles' );
 	add_theme_support( 'responsive-embeds' );
-	// add_theme_support( 'align-wide' );
+	add_theme_support( 'align-wide' );
 }
 add_action( 'after_setup_theme', 'fwd_setup' );
 
@@ -178,9 +178,32 @@ require get_template_directory() . '/inc/template-functions.php';
  */
 require get_template_directory() . '/inc/customizer.php';
 
+/* Customizer Post Types & Taxonomies.
+*/
+require get_template_directory() . '/inc/cpt-taxonomy.php';
 /**
  * Load Jetpack compatibility file.
  */
 if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
+
+//modify the excerpt length
+function fwd_excerpt_length($length){
+	global $post;
+    if ($post->post_type == 'fwd-student')
+		return 20;
+	else
+		return 40;
+}
+add_filter('excerpt_length', 'fwd_excerpt_length', 999);
+
+//modify the end of excerpt
+function fwd_excerpt_more($more){
+	global $post;
+    if ($post->post_type == 'fwd-student'){
+		$more = '<br><a href="'. get_permalink() .'" class="read-more">Read more about the student...</a>';
+		return $more;
+	}
+}
+add_filter('excerpt_more','fwd_excerpt_more');
